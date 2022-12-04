@@ -1,0 +1,27 @@
+.backgroundRegister {
+    display: flex;
+    width: 85vw;
+    height: 100vh;
+    border-radius: 3em;
+    position: relative;
+    z-index: 0;
+}
+
+.form-content {
+    padding: 2em;
+    align-self: center;
+}
+
+.column-1 {
+    position: relative;
+    z-index: 1;
+    padding-left: 14.5vw;
+    width: 10vw;
+}
+
+.column-2 {
+    position: relative;
+    z-index: 1;
+    padding-left: 17vw;
+    width: 15vw;
+}

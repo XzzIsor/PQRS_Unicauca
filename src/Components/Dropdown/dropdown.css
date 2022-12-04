@@ -1,0 +1,13 @@
+.dropdown-zone {
+    width: 15vw;
+    padding-top: 4.5vh;
+    padding-bottom: 0.1vh;
+    border-radius: 2em;
+}
+
+.dropdown {
+    width: 20vw;
+    height: 4vh;
+    border-radius: 2em;
+    
+}

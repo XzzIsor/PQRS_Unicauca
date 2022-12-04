@@ -1,0 +1,45 @@
+.custom-input {
+    width: 15vw;
+    padding-top: 4vh;
+    padding-bottom: 0.1vh;
+}
+
+.input {
+    width: 20vw;
+    height: 4vh;
+    border-radius: 1em;
+}
+
+.custom-input-large {
+    width: 40vw;
+    padding-top: 5vh;
+    padding-bottom: 0.1vh;
+    /*padding-left: 15vh;*/
+}
+
+.input-large {
+    width: 56vw;
+    height: 15vh;
+    border-radius: 1em;
+    text-align: start;
+}
+
+.custom-input-submit {
+    width: 15vw;
+    padding-top: 2vh;
+    padding-bottom: 0.1vh;
+    padding-left: 20vw;
+}
+
+.input-submit {
+    text-align: center;
+    width: 15vw;
+    height: 6vh;
+    border-radius: 1.5em;
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(24, 47, 115, 1);
+    stroke: none;
+    stroke-width: 0;
+}
