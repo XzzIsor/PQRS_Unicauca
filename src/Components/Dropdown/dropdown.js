@@ -10,6 +10,7 @@ function DropdownCustom(props) {
     value={props.defaultOption} 
     placeholder={props.title}
     onChange = {props.onChange}
+    
     /> 
   </div>;
   

@@ -4,8 +4,9 @@ import "./main_appbar.css";
 function MainAppbar() {
   return (
     <div className="main-appbar">
-        <div className="menu-button"></div>
-        <div className= "user-name"> Usuario </div>
+        <div className="menu-button"> 
+        </div>
+        <div className= "page-name"> Registro </div>
     </div>
   );
 }

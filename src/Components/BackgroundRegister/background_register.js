@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import {CustomInput} from "../CustomInput/custom_input";
 import { CustomInputLarge } from "../CustomInput/custom_input";
-import { CustumInputSubmit } from "../CustomInput/custom_input";
 import DropdownCustom from "../Dropdown/dropdown";
+import CustomButton from "../CustomButton/custom_button";
 import './background_register.css';
 
 
@@ -42,52 +42,66 @@ function RegisterBackground() {
       'Físico'
     ];
 
+    const [numeroVU, setNumeroVU] = useState('');
+    const [fechaRecepcion, setFechaRecepcion] = useState('');
+    const [tipoPeticionario, setTipoPeticionario] = useState('');
+    const [nombrePeticionario, setNombrePeticionario] = useState('');
+    const [tipoPQRSF, setTipoPQRSF] = useState('');
+    const [asunto, setAsunto] = useState('');
+    const [transladoA, setTransladoA] = useState('');
+    const [dependencia, setDependencia] = useState('');
+    const [numeroOficio, setNumeroOficio] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [celular, setCelular] = useState('');
+    const [email, setEmail] = useState('');
+    const [medioRecepcion, setMedioRecepcion] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+
     var tramite = {
-      numeroVU: '',
-      fechaRecepcion: '',
-      tipoPeticionario: '',
-      nombrePeticionario: '',
-      tipoPQRSF: '',
-      asunto: '',
-      transladoA: '',
-      dependencia: '',
-      numeroOficio: '',
-      direccion: '',
-      telefono: 0,
-      celular: 0,
-      email: '',
-      medioRecepcion: '',
-      descripcion: ''
+      numeroVU: numeroVU,
+      fechaRecepcion: fechaRecepcion,
+      tipoPeticionario: tipoPeticionario,
+      nombrePeticionario: nombrePeticionario,
+      tipoPQRSF: tipoPQRSF,
+      asunto: asunto,
+      transladoA: transladoA,
+      dependencia: dependencia,
+      numeroOficio: numeroOficio,
+      direccion: direccion,
+      telefono: telefono,
+      celular: celular,
+      email: email,
+      medioRecepcion: medioRecepcion,
+      descripcion: descripcion
     };
 
     return <div class= "backgroundRegister" style={{background: backgroundGradient}}> 
         <div className = "form-Content" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridGap: 20}}>
           <div className='column-1' > 
             <div> 
-                <CustomInput type="text" placeholder="Número VU" onChange={(value)=>{tramite.numeroVU = value}}/>
-                <CustomInput type="date" placeholder="Fecha Recepcion" onChange={(value)=>{tramite.fechaRecepcion = value}}/>
+                <CustomInput type="text" placeholder="Número VU" onChange={event=>{setNumeroVU(event.target.value)}}/>
+                <CustomInput type="date" placeholder="Fecha Recepcion" onChange={event=>{setFechaRecepcion(event.target.value)}}/>
                 <CustomInput type="text" placeholder="Fecha Vencimiento" readOnly="true"/>
-                <CustomInput type="text" placeholder="Peticionario" onChange={(value)=>{tramite.nombrePeticionario = value}}/>
-                <DropdownCustom options={optionsTipoPeticionario} value={optionsTipoPeticionario[0]} title = "Tipo Peticionario" onChange={(value)=>{tramite.tipoPeticionario = value}}></DropdownCustom>
-                <DropdownCustom options={optionsTipoPQRS} value={optionsTipoPQRS[0]} title = "Tipo PQRSF" onChange={(value)=>{tramite.tipoPQRSF = value}}></DropdownCustom>
-                <CustomInput type="text" placeholder="Asunto" onChange={(value)=>{tramite.asunto = value}}/>
-                <CustomInput type="text" placeholder="Traslado a" onChange={(value)=>{tramite.transladoA = value}}/>
-                <CustomInputLarge type="text" placeholder="Descripcion" onChange={(value)=>{tramite.descripcion = value}}/>
-                <CustumInputSubmit type="button" value="Guardar" onClick={
-                  ()=>{checkState()}
-                }/>
+                <CustomInput type="text" placeholder="Peticionario" onChange={event=>{setNombrePeticionario(event.target.value)}}/>
+                <DropdownCustom options={optionsTipoPeticionario} value={optionsTipoPeticionario[0]} title = "Tipo Peticionario" onChange={event=>{setTipoPeticionario(event.value)}}></DropdownCustom>
+                <DropdownCustom options={optionsTipoPQRS} value={optionsTipoPQRS[0]} title = "Tipo PQRSF" onChange={event=>{setTipoPQRSF(event.value)}}></DropdownCustom>
+                <CustomInput type="text" placeholder="Asunto" onChange={event=>{setAsunto(event.target.value)}}/>
+                <CustomInput type="text" placeholder="Traslado a" onChange={event=>{setTransladoA(event.target.value)}}/>
+                <CustomInputLarge type="text" placeholder="Descripcion" onChange={event=>{setDescripcion(event.target.value)}}/>
+                <CustomButton text="Guardar" onClick = {checkState(tramite)}></CustomButton>
 
             </div>
           </div>
           <div className='column-2'>
             <div>
-                <DropdownCustom options={optionsDependencia} value={optionsDependencia[0]} title = "Dependencia" onChange={(value)=>{tramite.dependencia = value}}></DropdownCustom>
-                <CustomInput type="text" placeholder="No. Oficio" onChange={(value)=>{tramite.numeroOficio = value}}/>
-                <CustomInput type="text" placeholder="Direccion" onChange={(value)=>{tramite.direccion = value}}/>
-                <CustomInput type="number" placeholder="Telefono" onChange={(value)=>{tramite.telefono = value}}/>
-                <CustomInput type="number" placeholder="Celular" onChange={(value)=>{tramite.celular = value}}/>
-                <CustomInput type="email" placeholder="E-Mail" onChange={(value)=>{tramite.email = value}}/>
-                <DropdownCustom options={optionMedioRecepcion} value={optionMedioRecepcion[0]} title = "Medio de Recepción" onChange={(value)=>{tramite.medioRecepcion = value}}></DropdownCustom>
+                <DropdownCustom options={optionsDependencia} value={optionsDependencia[0]} title = "Dependencia" onChange={event=>{setDependencia(event.value)}}></DropdownCustom>
+                <CustomInput type="text" placeholder="No. Oficio" onChange={event=>{setNumeroOficio(event.target.value)}}/>
+                <CustomInput type="text" placeholder="Direccion" onChange={event=>{setDireccion(event.target.value)}}/>
+                <CustomInput type="number" placeholder="Telefono" onChange={event=>{setTelefono(event.target.value)}}/>
+                <CustomInput type="number" placeholder="Celular" onChange={event=>{setCelular(event.target.value)}}/>
+                <CustomInput type="email" placeholder="E-Mail" onChange={event=>{setEmail(event.target.value)}}/>
+                <DropdownCustom options={optionMedioRecepcion} value={optionMedioRecepcion[0]} title = "Medio de Recepción" onChange={event=>{setMedioRecepcion(event.value)}}></DropdownCustom>
             </div>
           </div>
         </div>
@@ -97,7 +111,61 @@ function RegisterBackground() {
 }
 
 function checkState(tramite){
-  console.log(tramite);
+  if (checkInputData(tramite) === 1){
+    alert("El campo Número VU no puede estar vacío");
+    console.log(tramite);
+  }
+}
+
+
+function checkInputData(tramite){
+  if(tramite.numeroVU === ''){
+    return 1;
+  }
+  if(tramite.fechaRecepcion === ''){
+    return 2;
+  }
+  if(tramite.nombrePeticionario === ''){
+    return 3;
+  }
+  if(tramite.asunto === ''){
+    return 4;
+  }
+  if(tramite.transladoA === ''){
+    return 5;
+  }
+  if(tramite.descripcion === ''){
+    return 6;
+  }
+  if(tramite.numeroOficio === ''){
+    return 7;
+  }
+  if(tramite.direccion === ''){
+    return 8;
+  }
+  if(tramite.telefono === ''){
+    return 9;
+  }
+  if(tramite.celular === ''){
+    return 10;
+  }
+  if(tramite.email === ''){
+    return 11;
+  }
+  if(tramite.tipoPQRSF === 'Tipo PQRSF'){
+    return 12;
+  }
+  if(tramite.tipoPeticionario === 'Tipo Peticionario'){
+    return 13;
+  }
+  if(tramite.dependencia === 'Dependencia'){
+    return 14;
+  }
+  if(tramite.medioRecepcion === 'Medio de Recepción'){
+    return 15;
+  }
+
+  return 0;
 }
 
 export default RegisterBackground;

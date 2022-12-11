@@ -2,6 +2,9 @@ import React from "react";
 import "./custom_input.css";
 
 function CustomInput(props) {
+
+    
+
     return (
         <div className="custom-input">
         <input
@@ -29,7 +32,7 @@ function CustomInputLarge(props) {
     );
 }
 
-function CustumInputSubmit(props) {
+function CustomInputSubmit(props) {
     return (
         <div className="custom-input-submit">
         <input
@@ -45,4 +48,4 @@ function CustumInputSubmit(props) {
 
 export {CustomInput};
 export {CustomInputLarge};
-export {CustumInputSubmit};
+export {CustomInputSubmit};
