@@ -1,13 +1,26 @@
-.dropdown-zone {
-    width: 15vw;
-    padding-top: 4.5vh;
-    padding-bottom: 0.1vh;
-    border-radius: 2em;
+.dropdown {
+    width: 22vw;
+    border-radius: 10em;
+    margin-top: 3.5vh;
+    color: black;
 }
 
-.dropdown {
-    width: 20vw;
-    height: 4vh;
-    border-radius: 2em;
-    
+.Dropdown-control {
+    min-height: 3.5vh;
+    border-radius: 10px;
+    font-family: Helvetica;
+    font-size: 13px;
+    color: gray;
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    padding: 18px 20px;
+    text-align: left;
+}
+
+.Dropdown-arrow {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
 }

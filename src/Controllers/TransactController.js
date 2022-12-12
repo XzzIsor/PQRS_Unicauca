@@ -1,145 +1,104 @@
-import TransactModel from "../Models/TransactModel";
+import {toTransact, transactToJson} from "../Models/TransactModel";
+import urlApi from "../APIURL";
 
-const url = "http://132.226.60.71:8080/api";
 
+async function registerTransact(tramite) {
+    let url = urlApi + "tramite";
 
-tramiteAux = {
-    nombrePeticionario: "",
-    idTipoTramite: 0,
-    correo: "",
-    numeroVU: 0,
-    celular: "",
-    fechaRecepcion: "",
-    telefono: "",
-    direccion: "",
-    asunto: "",
-    numeroOficio: "",
-    idDependencia: 0,
-    idTipoRecepcion: 0,
-    descripcion: ""
-}
-
-$(document).ready(function registerTransact(transact) {
-
-    $('.btn').click(function () {
-        $.ajax({
-            url: url + "/tramite",
-            type: "POST",
-            data: TransactModel.transactToJson(transact),
-            dataType: "json",
-            sucess: function (data) {
-                console.log(data);
-                return TransactModel.toTransact(data);
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+    const response = await fetch('https://tramites-backend-production.up.railway.app/api/tramite', {
+        method: 'POST',
+        body: transactToJson(tramite),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    }).then(response => {
+        return response.status === 200 ? true : false;
+    }).catch(error => {
+        return false;
     });
 
-});
+    return response === undefined ? false : true;
+}
 
-function checkInfo(tramite) {
-    error = "";
-    if(tramite.numeroVU == ""){
-        error = "VU";
-    }
-    if(tramite.fechaRecepcion == "dd/mm/aaaa"){
-        error = "Fecha Recepcion";
-    }
-    if(tramite.tipoPeticionario == "Tipo Peticionario"){
-        error = "Tipo Peticionario";
-    }
-    if(tramite.nombrePeticionario == ""){
-        error = "Peticionario";
-    }
-    if(tramite.tipoPQRSF == "Tipo PQRSF"){
-        error = "Tipo PQRSF";
-    }
-    if(tramite.asunto == ""){
-        error = "Asunto";
-    }
-    if(tramite.transladoA == ""){
-        error = "Traslado";
-    }
-    if(tramite.dependencia == "Dependencia"){
-        error = "Dependencia";
-    }
-    if(tramite.numeroOficio == ""){
-        error = "Numero Oficio";
-    }
-    if(tramite.direccion == ""){
-        error = "Direccion";
-    }
-    if(tramite.telefono == ""){
-        error = "Telefono";
-    }
-    if(tramite.celular == ""){
-        error = "Celular";
-    }
-    if(tramite.email == ""){
-        error = "Email";
-    }
-    if(tramite.medioRecepcion == "Medio de Recepcion"){
-        error = "Medio de Recepcion";
-    }
-    if(tramite.descripcion == ""){
-        error = "Descripcion";
-    }
+async function checkInfoRegister(tramite) {
+    let tramiteAux = {
+        nombrePeticionario: "",
+        idTipoTramite: 0,
+        correo: "",
+        numeroVU: 0,
+        celular: "",
+        fechaRecepcion: "",
+        telefono: "",
+        direccion: "",
+        asunto: "",
+        numeroOficio: "",
+        idDependencia: 0,
+        idTipoRecepcion: 0,
+        descripcion: "",
+        idTipoTipoPeticionario: ""
+    };
 
-    if(error != ""){
-        return error;
-    }else {
         tramiteAux.numeroVU = tramite.numeroVU;
         tramiteAux.fechaRecepcion = tramite.fechaRecepcion;
         tramiteAux.nombrePeticionario = tramite.nombrePeticionario;
         tramiteAux.asunto = tramite.asunto;
-        tramiteAux.transladoA = tramite.transladoA;
         tramiteAux.numeroOficio = tramite.numeroOficio;
         tramiteAux.direccion = tramite.direccion;
         tramiteAux.telefono = tramite.telefono;
         tramiteAux.celular = tramite.celular;
-        tramiteAux.email = tramite.email;
+        tramiteAux.correo = tramite.email;
         tramiteAux.descripcion = tramite.descripcion;
         
 
-        if(tramite.tipoPQRSF == "Peticion"){
+        if(tramite.tipoPQRSF === "Peticion"){
             tramiteAux.idTipoTramite = 1;
-        }else if(tramite.tipoPQRSF == "Queja"){
+        }else if(tramite.tipoPQRSF === "Queja"){
             tramiteAux.idTipoTramite = 2;
-        }else if(tramite.tipoPQRSF == "Reclamo"){
+        }else if(tramite.tipoPQRSF === "Reclamo"){
             tramiteAux.idTipoTramite = 3;
-        }else if(tramite.tipoPQRSF == "Sugerencia"){
+        }else if(tramite.tipoPQRSF === "Sugerencia"){
             tramiteAux.idTipoTramite = 4;
-        }else if(tramite.tipoPQRSF == "Felicitacion"){
+        }else if(tramite.tipoPQRSF === "Felicitacion"){
             tramiteAux.idTipoTramite = 5;
         } 
 
-        if(tramite.medioRecepcion == "Digital"){
+        if(tramite.medioRecepcion === "Digital"){
             tramiteAux.idTipoRecepcion = 1;
-        }else if(tramite.medioRecepcion == "Físico"){
+        }else if(tramite.medioRecepcion === "Físico"){
             tramiteAux.idTipoRecepcion = 2;
         }
 
-        if(tramite.dependencia == "Dependencia 1"){
+        if(tramite.dependencia === "Dependencia 1"){
             tramiteAux.idDependencia = 1;
-        }else if(tramite.dependencia == "Dependencia 2"){
+        }else if(tramite.dependencia === "Dependencia 2"){
             tramiteAux.idDependencia = 2;
-        }else if(tramite.dependencia == "Dependencia 3"){
+        }else if(tramite.dependencia === "Dependencia 3"){
             tramiteAux.idDependencia = 3;
-        }else if(tramite.dependencia == "Dependencia 4"){
+        }else if(tramite.dependencia === "Dependencia 4"){
             tramiteAux.idDependencia = 4;
-        }else if(tramite.dependencia == "Dependencia 5"){
+        }else if(tramite.dependencia === "Dependencia 5"){
             tramiteAux.idDependencia = 5;
         }
 
-        this.registerTransact(tramiteAux);
-        return error;
+        if(tramite.tipoPeticionario === "Docente"){
+            tramiteAux.idTipoTipoPeticionario = 1;
+        }else if(tramite.tipoPeticionario === "Estudiante de pregrado"){
+            tramiteAux.idTipoTipoPeticionario = 2;
+        }else if(tramite.tipoPeticionario === "Estudiante de posgrado"){
+            tramiteAux.idTipoTipoPeticionario = 3;
+        }else if(tramite.tipoPeticionario === "Persona externa"){
+            tramiteAux.idTipoTipoPeticionario = 4;
+        }else if(tramite.tipoPeticionario === "Empleado"){
+            tramiteAux.idTipoTipoPeticionario = 5;
+        }else if(tramite.tipoPeticionario === "Jubilado"){
+            tramiteAux.idTipoTipoPeticionario = 6;
+        }
+        
+        //prueba();
+        //return true;
+        let res = await registerTransact(tramiteAux);
+        return res;
     }
 
-}
-
-
+export default checkInfoRegister;
 
 
 

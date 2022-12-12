@@ -2,14 +2,31 @@
     background-color: rgba(181, 0, 0, 1);
     color: white;
     align-content: center;
-    padding-top: 1.5vh;
+    padding-top: 1.0vh;
     padding-bottom: 1.5vh;
 
 }
 
-.menu-button {
-    src: url("../../assets/hamburguesa.png");
-    
+.menu-button {  
+    width: 3vw;
+    margin-left: 2.5vh;
+    background-color: transparent;
+    border: none
+}
+
+.menu-button-icon {
+    color: white;
+    font-size: 3vh;
+    height: 3vh;
+}
+
+.icon{
+    font-size: 1.2em;
+}
+
+.icon:hover{
+    font-size: 1.2em;
+    color: rgba(24, 47, 115, 1);
 }
 
 .page-name {

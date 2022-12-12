@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-
+import "./custom_button.css";
 
   function CustomButton (props) {
     const text = props.text;

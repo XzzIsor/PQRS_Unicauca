@@ -6,7 +6,6 @@ function CustomInput(props) {
     
 
     return (
-        <div className="custom-input">
         <input
             className="input"
             type={props.type}
@@ -14,13 +13,11 @@ function CustomInput(props) {
             onChange={props.onChange}
             readOnly={props.readOnly}
         />
-        </div>
     );
 }
 
 function CustomInputLarge(props) {
     return (
-        <div className="custom-input-large">
         <input
             className="input-large"
             type={props.type}
@@ -28,20 +25,17 @@ function CustomInputLarge(props) {
             onChange={props.onChange}
             readOnly={props.readOnly}
         />
-        </div>
     );
 }
 
 function CustomInputSubmit(props) {
     return (
-        <div className="custom-input-submit">
         <input
             className="input-submit"
             type={props.type}
             value={props.value}
             onClick={props.onClick}
         />
-        </div>
     );
 }
 

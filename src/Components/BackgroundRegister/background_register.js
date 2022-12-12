@@ -3,6 +3,7 @@ import {CustomInput} from "../CustomInput/custom_input";
 import { CustomInputLarge } from "../CustomInput/custom_input";
 import DropdownCustom from "../Dropdown/dropdown";
 import CustomButton from "../CustomButton/custom_button";
+import checkInfoRegister from "../../Controllers/TransactController";
 import './background_register.css';
 
 
@@ -12,11 +13,10 @@ const backgroundGradient = 'linear-gradient(335deg, rgba(202, 39,39, .91), rgba(
 function RegisterBackground() {
     
     const optionsTipoPeticionario = [
-       'Estudiante Pregrado',
-       'Estudiante Posgrado',
        'Docente',
+       'Estudiante de Pregrado',
+       'Estudiante de Posgrado',
        'Empleado',
-       'Egresado',
        'Jubilado',
        'Persona Externa'   
     ];
@@ -42,130 +42,182 @@ function RegisterBackground() {
       'Físico'
     ];
 
-    const [numeroVU, setNumeroVU] = useState('');
-    const [fechaRecepcion, setFechaRecepcion] = useState('');
-    const [tipoPeticionario, setTipoPeticionario] = useState('');
-    const [nombrePeticionario, setNombrePeticionario] = useState('');
-    const [tipoPQRSF, setTipoPQRSF] = useState('');
-    const [asunto, setAsunto] = useState('');
-    const [transladoA, setTransladoA] = useState('');
-    const [dependencia, setDependencia] = useState('');
-    const [numeroOficio, setNumeroOficio] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [celular, setCelular] = useState('');
-    const [email, setEmail] = useState('');
-    const [medioRecepcion, setMedioRecepcion] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-
-    var tramite = {
-      numeroVU: numeroVU,
-      fechaRecepcion: fechaRecepcion,
-      tipoPeticionario: tipoPeticionario,
-      nombrePeticionario: nombrePeticionario,
-      tipoPQRSF: tipoPQRSF,
-      asunto: asunto,
-      transladoA: transladoA,
-      dependencia: dependencia,
-      numeroOficio: numeroOficio,
-      direccion: direccion,
-      telefono: telefono,
-      celular: celular,
-      email: email,
-      medioRecepcion: medioRecepcion,
-      descripcion: descripcion
+    const [fechaVencimiento, setFechaVencimiento] = useState('Fecha Vencimiento');
+    
+    let tramite = {
+      numeroVU: '',
+      fechaRecepcion: '',
+      tipoPeticionario: 'Tipo Peticionario',
+      nombrePeticionario: '',
+      tipoPQRSF: 'Tipo PQRSF',
+      asunto: '',
+      transladoA: '',
+      dependencia: 'Dependencia',
+      numeroOficio: '',
+      direccion: '',
+      telefono: '',
+      celular: '',
+      email: '',
+      medioRecepcion: 'Medio de Recepción',
+      descripcion: ''
     };
 
     return <div class= "backgroundRegister" style={{background: backgroundGradient}}> 
+      <div className="form-Container">
         <div className = "form-Content" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridGap: 20}}>
           <div className='column-1' > 
             <div> 
-                <CustomInput type="text" placeholder="Número VU" onChange={event=>{setNumeroVU(event.target.value)}}/>
-                <CustomInput type="date" placeholder="Fecha Recepcion" onChange={event=>{setFechaRecepcion(event.target.value)}}/>
-                <CustomInput type="text" placeholder="Fecha Vencimiento" readOnly="true"/>
-                <CustomInput type="text" placeholder="Peticionario" onChange={event=>{setNombrePeticionario(event.target.value)}}/>
-                <DropdownCustom options={optionsTipoPeticionario} value={optionsTipoPeticionario[0]} title = "Tipo Peticionario" onChange={event=>{setTipoPeticionario(event.value)}}></DropdownCustom>
-                <DropdownCustom options={optionsTipoPQRS} value={optionsTipoPQRS[0]} title = "Tipo PQRSF" onChange={event=>{setTipoPQRSF(event.value)}}></DropdownCustom>
-                <CustomInput type="text" placeholder="Asunto" onChange={event=>{setAsunto(event.target.value)}}/>
-                <CustomInput type="text" placeholder="Traslado a" onChange={event=>{setTransladoA(event.target.value)}}/>
-                <CustomInputLarge type="text" placeholder="Descripcion" onChange={event=>{setDescripcion(event.target.value)}}/>
-                <CustomButton text="Guardar" onClick = {checkState(tramite)}></CustomButton>
-
+                <CustomInput type="text" placeholder="Número VU" onChange={event=>{tramite.numeroVU = event.target.value}}/>
+                <CustomInput type="date" placeholder="Fecha Recepcion" onChange={event=>{/*checkDate(event.target.value, setFechaVencimiento);*/
+                                                                                             let fecha = new Date(event.target.value);
+                                                                                             tramite.fechaRecepcion = fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear();
+                                                                                             }}/>
+                <CustomInput type="text" placeholder={fechaVencimiento} readOnly="true"/>
+                <CustomInput type="text" placeholder="Peticionario" onChange={event=>{tramite.nombrePeticionario = event.target.value;}}/>
+                <DropdownCustom options={optionsTipoPeticionario} value={optionsTipoPeticionario[0]} title = "Tipo Peticionario" onChange={event=>{tramite.tipoPeticionario = event.value;}}></DropdownCustom>
+                <DropdownCustom options={optionsTipoPQRS} value={optionsTipoPQRS[0]} title = "Tipo PQRSF" onChange={event=>{tramite.tipoPQRSF = event.value;}}></DropdownCustom>
+                <CustomInput type="text" placeholder="Asunto" onChange={event=>{tramite.asunto = event.target.value;}}/>
+                <CustomInput type="text" placeholder="Traslado a" onChange={event=>{tramite.transladoA = event.target.value;}}/>
+                
             </div>
           </div>
           <div className='column-2'>
             <div>
-                <DropdownCustom options={optionsDependencia} value={optionsDependencia[0]} title = "Dependencia" onChange={event=>{setDependencia(event.value)}}></DropdownCustom>
-                <CustomInput type="text" placeholder="No. Oficio" onChange={event=>{setNumeroOficio(event.target.value)}}/>
-                <CustomInput type="text" placeholder="Direccion" onChange={event=>{setDireccion(event.target.value)}}/>
-                <CustomInput type="number" placeholder="Telefono" onChange={event=>{setTelefono(event.target.value)}}/>
-                <CustomInput type="number" placeholder="Celular" onChange={event=>{setCelular(event.target.value)}}/>
-                <CustomInput type="email" placeholder="E-Mail" onChange={event=>{setEmail(event.target.value)}}/>
-                <DropdownCustom options={optionMedioRecepcion} value={optionMedioRecepcion[0]} title = "Medio de Recepción" onChange={event=>{setMedioRecepcion(event.value)}}></DropdownCustom>
+                <DropdownCustom options={optionsDependencia} value={optionsDependencia[0]} title = "Dependencia" onChange={event=>{tramite.dependencia = event.value}}></DropdownCustom>
+                <CustomInput type="text" placeholder="No. Oficio" onChange={event=>{tramite.numeroOficio = event.target.value;}}/>
+                <CustomInput type="text" placeholder="Direccion" onChange={event=>{tramite.direccion = event.target.value}}/>
+                <CustomInput type="number" placeholder="Teléfono" onChange={event=>{tramite.telefono = event.target.value}}/>
+                <CustomInput type="number" placeholder="Celular" onChange={event=>{tramite.celular = event.target.value}}/>
+                <CustomInput type="email" placeholder="E-Mail" onChange={event=>{tramite.email = event.target.value}}/>
+                <DropdownCustom options={optionMedioRecepcion} value={optionMedioRecepcion[0]} title = "Medio de Recepción" onChange={event=>{tramite.medioRecepcion = event.value}}></DropdownCustom>
             </div>
           </div>
         </div>
-        
+          <CustomInputLarge type="text" placeholder="Descripcion" onChange={event=>{tramite.descripcion = event.target.value;}}/>
+          <CustomButton text="Guardar" onClick = {async () => await checkState(tramite)}></CustomButton>
+      </div>
     </div>
 
 }
 
-function checkState(tramite){
-  if (checkInputData(tramite) === 1){
-    alert("El campo Número VU no puede estar vacío");
-    console.log(tramite);
+function checkDate(date, setFechaVencimiento){
+  let today = new Date();
+  let dateToCheck = new Date(date);
+  let month = 0;
+  let day = 0;
+  let year = 0;
+  if(dateToCheck <= today){
+    let newDay = dateToCheck.getDate() + 15;
+    if(dateToCheck.getMonth() === 2 || dateToCheck.getMonth() === 5 || dateToCheck.getMonth() === 8 || dateToCheck.getMonth() === 10){
+      if(newDay > 30){
+        month = dateToCheck.getMonth() + 1;
+        day = newDay - 30;
+        dateToCheck.setMonth(month);
+        dateToCheck.setDate(day);
+      }else{
+        dateToCheck.setDate(newDay);
+      }
+    }else if(dateToCheck.getMonth() === 1){
+      if(newDay > 28){
+        day = newDay - 28;
+        dateToCheck.setMonth(2);
+        dateToCheck.setDate(day);
+      }else{
+        dateToCheck.setDate(newDay);
+      }
+    }else if(dateToCheck.getMonth() === 11){
+      if(newDay > 31){
+        day = newDay - 31;
+        year = dateToCheck.getFullYear() + 1;
+        dateToCheck.setMonth(0);
+        dateToCheck.setDate(day);
+        dateToCheck.setFullYear(year);
+      }else{
+        dateToCheck.setDate(newDay);
+      }
+    }else{
+      if(newDay > 31){
+        month = dateToCheck.getMonth() + 1;
+        day = newDay - 31;
+        dateToCheck.setMonth(month);
+        dateToCheck.setDate(day);
+      }else{
+        dateToCheck.setDate(newDay);
+      }
+    }
+    setFechaVencimiento(dateToCheck.getDate().toString() + "/" + (dateToCheck.getMonth() + 1).toString() + "/" +  dateToCheck.getFullYear().toString());
+  }else{
+    setFechaVencimiento("");
+    alert("La fecha de recepción no puede ser mayor a la fecha actual");
+  }
+}
+
+async function checkState(tramite){
+
+  if (checkInputData(tramite) === true){
+
+    let res = await checkInfoRegister(tramite);
+    if(res === true){
+      alert("Tramite registrado con exito");
+    }else{
+      alert("Error al registrar el tramite");
+    }
+  }else{
+    console.log("Error");
   }
 }
 
 
 function checkInputData(tramite){
+  let response = '';
+
   if(tramite.numeroVU === ''){
-    return 1;
+    response += '- Número VU \n';
   }
   if(tramite.fechaRecepcion === ''){
-    return 2;
+    response += "- Fecha Recepción\n";
   }
   if(tramite.nombrePeticionario === ''){
-    return 3;
+    response += '- Nombre Peticionario\n';
   }
   if(tramite.asunto === ''){
-    return 4;
+    response += '- Asunto\n';
   }
   if(tramite.transladoA === ''){
-    return 5;
+    response += "- Traslado A\n";
   }
   if(tramite.descripcion === ''){
-    return 6;
+    response += "- Descripción\n";
   }
   if(tramite.numeroOficio === ''){
-    return 7;
+    response += "- Número Oficio\n";
   }
   if(tramite.direccion === ''){
-    return 8;
+    response += "- Dirección\n";
   }
   if(tramite.telefono === ''){
-    return 9;
+    response += "- Teléfono\n";
   }
   if(tramite.celular === ''){
-    return 10;
+    response += "- Celular\n";
   }
   if(tramite.email === ''){
-    return 11;
+    response += "- E-Mail\n";
   }
   if(tramite.tipoPQRSF === 'Tipo PQRSF'){
-    return 12;
+    response += "- Debe seleccionar un tipo de PQRSF\n";
   }
   if(tramite.tipoPeticionario === 'Tipo Peticionario'){
-    return 13;
+    response += "- Debe seleccionar un tipo de Peticionario\n";
   }
   if(tramite.dependencia === 'Dependencia'){
-    return 14;
+    response += "- Debe seleccionar una dependencia\n";
   }
   if(tramite.medioRecepcion === 'Medio de Recepción'){
-    return 15;
+    response += "- Debe seleccionar un medio de recepción\n";
   }
 
-  return 0;
+  return response === '' ? true : alert( "Ingrese un valor para los campos: \n"+ response);
 }
 
 export default RegisterBackground;

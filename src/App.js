@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-        <MainAppbar />
+        <MainAppbar title = "Registro"/>
         <FormRegister></FormRegister>
     </div>
   );
